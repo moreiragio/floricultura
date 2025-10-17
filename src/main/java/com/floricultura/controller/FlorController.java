@@ -25,7 +25,7 @@ public class FlorController {
     @GetMapping("/novo")
     public String novo(Model model) {
         model.addAttribute("flor", new Flor());
-        return "flor-form";
+        return "flor/cadastrarFlor";
     }
 
     @PostMapping("/salvar")

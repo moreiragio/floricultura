@@ -1,10 +1,18 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Floricultura</title>
+    <title>Floricultura Flores & Cores</title>
+    <link rel="stylesheet" th:href="@{/css/estilo.css}">
 </head>
 <body>
-<h1>Bem-vindo à Floricultura!</h1>
+<h1>Bem-vindo à Floricultura Flores & Cores</h1>
+<p>Escolha uma opção abaixo para gerenciar:</p>
+
+<div class="botoes">
+    <a th:href="@{/usuarios/novo}">Usuários</a>
+    <a th:href="@{/flores/novo}">Flores</a>
+    <a th:href="@{/outrosprodutos}">Outros Produtos</a>
+</div>
 </body>
 </html>
