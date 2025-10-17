@@ -3,33 +3,50 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bem-vindo à Floricultura Flores & Cores</title>
+    <title>Perfil do Usuário - Floricultura Flores & Cores</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" th:href="@{estilo.css}">
+    <link rel="stylesheet" href="/css/estilo.css">
 </head>
 <body>
 
 <header>
     <h1><a th:href="@{/}" style="text-decoration: none; color: white;">Floricultura Flores & Cores</a></h1>
-    <nav class="nav-login">
-        <a th:href="@{/visitante/inicio}">Entrar como Visitante</a>
+    <nav class="nav-central">
+        <a th:href="@{/logout}">Logout</a>
     </nav>
 </header>
 
-<div class="welcome-container">
-    <h1>Bem-vindo à Floricultura Flores & Cores!</h1>
-    <p>Explore nossas flores e arranjos encantadores para todas as ocasiões.</p>
+<section class="perfil-usuario" th:if="${usuario != null}">
+    <h2>Meu Perfil</h2>
 
-    <div class="question-box">
-        <p>Deseja logar ou cadastrar?</p>
-        <a th:href="@{/login}">Login</a>
-        <a th:href="@{/usuarios/novo}">Cadastrar</a>
+    <div class="dados-usuario">
+        <p><strong>Nome:</strong> <span th:text="${usuario.nome}"></span></p>
+        <p><strong>Email:</strong> <span th:text="${usuario.email}"></span></p>
+        <p><strong>CPF:</strong> <span th:text="${usuario.cpf}"></span></p>
+        <p><strong>Telefone:</strong> <span th:text="${usuario.telefone}"></span></p>
+        <p><strong>Endereço:</strong>
+            <span th:text="${usuario.rua}"></span>,
+            <span th:text="${usuario.numero}"></span>,
+            <span th:text="${usuario.bairro}"></span> -
+            <span th:text="${usuario.cidade}"></span>/<span th:text="${usuario.estado}"></span>
+        </p>
+        <p><strong>CEP:</strong> <span th:text="${usuario.cep}"></span></p>
+        <p><strong>Complemento:</strong>
+            <span th:text="${usuario.complemento != null ? usuario.complemento : 'Não informado'}"></span>
+        </p>
     </div>
-</div>
+
+    <a th:href="@{/usuario/editar}" class="botao-editar">Editar Perfil</a>
+</section>
+
+<section th:if="${usuario == null}">
+    <p>Usuário não logado. <a th:href="@{/login}">Clique aqui para entrar</a>.</p>
+</section>
 
 <footer>
     <div class="footer-container">
+
         <div class="footer-section">
             <h4>Horário de Funcionamento</h4>
             <p>De seg à sex das 08h às 20h</p>

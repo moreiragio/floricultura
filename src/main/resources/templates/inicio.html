@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Floricultura Flores & Cores</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../estilo.css">
+</head>
+<body class="pagina-flores">
+
+<header>
+    <nav class="nav-central">
+        <a href="#flores" class="link-flores">Flores</a>
+        <th:block th:each="categoria : ${categorias}">
+            <a th:href="'#' + ${categoria.nome}" th:text="${categoria.nome}"></a>
+        </th:block>
+
+        <form th:action="@{/buscarProdutos}" method="get" class="form-busca">
+            <input type="text" name="q" placeholder="Buscar flores..." class="campo-busca">
+            <button type="submit" class="btn-buscar2">
+                <i class="fa fa-search"></i>
+            </button>
+        </form>
+
+        <div class="menu-icon" id="menuIcon">&#9776;</div>
+    </nav>
+</header>
+
+<!-- Menu Modal -->
+<div id="menuModal" class="menu-modal">
+    <div class="menu-content">
+        <span id="closeMenu" class="close-menu">&times;</span>
+
+        <th:block th:if="${usuario == null}">
+            <a th:href="@{/login}">Login</a>
+            <a th:href="@{/cadastro}">Cadastro</a>
+        </th:block>
+
+        <th:block th:if="${usuario != null}">
+            <th:block th:switch="${tipoUsuario}">
+                <a th:case="'master'" th:href="@{/funcionario/listar}">Página do Admin</a>
+                <a th:case="'master'" th:href="@{/logout}">Logout</a>
+
+                <a th:case="'funcionario'" th:href="@{/paginaFuncionario}">Página do Funcionário</a>
+                <a th:case="'funcionario'" th:href="@{/logout}">Logout</a>
+
+                <a th:case="*"> <!-- outro caso: usuário comum -->
+                    <a th:href="@{/perfil}">Perfil</a>
+                    <a th:href="@{/logout}">Logout</a>
+                </a>
+            </th:block>
+        </th:block>
+    </div>
+</div>
+
+<div class="espacamento">
+    <div class="carrossel2">
+        <div class="imagens">
+            <img src="/imagens/banner.png" alt="Flores 1" style="display: block;">
+            <img src="/imagens/foto2.png" alt="Flores 2">
+            <img src="/imagens/foto1.png" alt="Flores 3">
+        </div>
+        <button class="botaoesq" id="prevBtn">&#10094;</button>
+        <button class="botaodir" id="nextBtn">&#10095;</button>
+    </div>
+</div>
+
+<section id="flores" class="flores-venda">
+    <h2>Flores Disponíveis</h2>
+    <br>
+    <div class="grid-flores">
+        <th:block th:each="flor : ${flores}">
+            <div class="flor-card">
+                <div class="flor-detalhes">
+                    <h3 class="flor-titulo" th:text="${flor.nome}"></h3>
+                    <p><strong>Descrição:</strong> <span th:text="${flor.descricao}"></span></p>
+                    <p><strong>Preço:</strong> R$ <span th:text="${flor.valor}"></span></p>
+                    <p><strong>Cor:</strong> <span th:text="${flor.cor}"></span></p>
+                </div>
+            </div>
+        </th:block>
+    </div>
+</section>
+
+<th:block th:each="categoria : ${categorias}">
+    <section th:id="${categoria.nome}" class="flores-venda">
+        <h2 th:text="${categoria.nome} + ' Disponíveis'"></h2>
+        <br>
+        <div class="grid-flores">
+            <th:block th:each="produto : ${produtosPorCategoria[categoria.id]}">
+                <div class="flor-card">
+                    <div class="flor-detalhes">
+                        <h3 class="flor-titulo" th:text="${produto.nome}"></h3>
+                        <p><strong>Descrição:</strong> <span th:text="${produto.descricao}"></span></p>
+                        <p><strong>Preço:</strong> R$ <span th:text="${produto.valor}"></span></p>
+                    </div>
+                </div>
+            </th:block>
+        </div>
+    </section>
+</th:block>
+
+<footer>
+    <div class="footer-container">
+
+        <div class="footer-section">
+            <h4>Horário de Funcionamento</h4>
+            <p>De seg à sex das 08h às 20h</p>
+            <p>Sáb e dom das 10h às 18h</p>
+        </div>
+        <div class="footer-section">
+            <h4>Entre em Contato</h4>
+            <a href="https://www.instagram.com" target="_blank" aria-label="Instagram">
+                <i class="fab fa-instagram"></i>
+            </a>
+            <a href="https://www.facebook.com" target="_blank" aria-label="Facebook">
+                <i class="fab fa-facebook-f"></i>
+            </a>
+            <a href="https://wa.me/559999999999" target="_blank" aria-label="WhatsApp">
+                <i class="fab fa-whatsapp"></i>
+            </a>
+        </div>
+        <div class="footer-section">
+            <h4>Endereço</h4>
+            <p>Rua das Flores, 123, Taboão da Serra - SP</p>
+            <p>Telefone: (11) 4787-7355</p>
+        </div>
+    </div>
+</footer>
+
+<script>
+    // Carrossel
+    let index = 0;
+    const imagens = document.querySelectorAll('.imagens img');
+
+    function showImage() {
+        imagens.forEach((img, i) => {
+            img.style.display = (i === index) ? 'block' : 'none';
+        });
+    }
+
+    document.getElementById('nextBtn').addEventListener('click', () => {
+        index = (index + 1) % imagens.length;
+        showImage();
+    });
+
+    document.getElementById('prevBtn').addEventListener('click', () => {
+        index = (index - 1 + imagens.length) % imagens.length;
+        showImage();
+    });
+
+    setInterval(() => {
+        index = (index + 1) % imagens.length;
+        showImage();
+    }, 6000);
+
+    showImage();
+
+    // Modal do Menu
+    const menuIcon = document.getElementById('menuIcon');
+    const menuModal = document.getElementById('menuModal');
+    const closeMenu = document.getElementById('closeMenu');
+
+    menuIcon.onclick = () => { menuModal.style.display = "block"; }
+    closeMenu.onclick = () => { menuModal.style.display = "none"; }
+    window.onclick = (event) => {
+        if (event.target === menuModal) menuModal.style.display = "none";
+    }
+</script>
+
+</body>
+</html>

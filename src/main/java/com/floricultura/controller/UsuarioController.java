@@ -18,7 +18,7 @@ public class UsuarioController {
     @GetMapping
     public String listar(Model model) {
         model.addAttribute("usuarios", service.listarTodos());
-        return "usuario/listarUsuario";
+        return "usuario/perfilUsuario";
     }
 
     @GetMapping("/novo")
