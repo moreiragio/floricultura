@@ -5,20 +5,16 @@ import com.floricultura.service.UsuarioService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import java.util.Optional;
 
 @Controller
 @RequestMapping("/usuarios")
 public class UsuarioController {
+
     private final UsuarioService service;
 
     public UsuarioController(UsuarioService service) {
         this.service = service;
-    }
-
-    @GetMapping
-    public String listar(Model model) {
-        model.addAttribute("usuarios", service.listarTodos());
-        return "usuario/perfilUsuario";
     }
 
     @GetMapping("/novo")
@@ -27,22 +23,40 @@ public class UsuarioController {
         return "usuario/cadastrarUsuario";
     }
 
+
     @PostMapping("/salvar")
-    public String salvar(@ModelAttribute Usuario usuario) {
+    public String salvar(@ModelAttribute Usuario usuario, Model model) {
         service.salvar(usuario);
-        return "redirect:/usuarios";
+        model.addAttribute("sucesso", true);
+        model.addAttribute("usuario", new Usuario());
+        return "usuario/cadastrarUsuario";
+    }
+
+    @GetMapping
+    public String listar(Model model) {
+        model.addAttribute("usuarios", service.listarTodos());
+        return "usuario/listarUsuarios";
     }
 
     @GetMapping("/editar/{id}")
-    public String editarForm(@PathVariable Long id, Model model) {
-        Usuario usuario = service.buscarPorId(id).orElseThrow();
-        model.addAttribute("usuario", usuario);
-        return "usuario/editarUsuario";
+    public String editar(@PathVariable Long id, Model model) {
+        Optional<Usuario> usuarioOpt = service.buscarPorId(id);
+        if (usuarioOpt.isPresent()) {
+            model.addAttribute("usuario", usuarioOpt.get());
+            return "usuario/editarUsuario";
+        } else {
+            return "redirect:/usuarios";
+        }
+    }
+    @PostMapping("/atualizar")
+    public String atualizar(@ModelAttribute Usuario usuario) {
+        service.atualizar(usuario);
+        return "redirect:/usuarios";
     }
 
-    @GetMapping("/deletar/{id}")
-    public String deletar(@PathVariable Long id) {
-        service.deletar(id);
+    @GetMapping("/excluir/{id}")
+    public String excluir(@PathVariable Long id) {
+        service.excluir(id);
         return "redirect:/usuarios";
     }
 }

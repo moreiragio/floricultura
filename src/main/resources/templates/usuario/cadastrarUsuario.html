@@ -4,9 +4,40 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cadastro - Floricultura Flores & Cores</title>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" th:href="@{../estilo.css}">
+    <style>
+        .modal-sucesso {
+            display: none;
+            position: fixed;
+            z-index: 999;
+            left: 0; top: 0;
+            width: 100%; height: 100%;
+            background-color: rgba(0, 0, 0, 0.4);
+            justify-content: center;
+            align-items: center;
+            font-family: 'Poppins', sans-serif;
+        }
+        .modal-conteudo {
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            max-width: 350px;
+        }
+        .modal-conteudo h2 { color: #4CAF50; margin-bottom: 15px; }
+        .modal-conteudo button {
+            background-color: #4CAF50;
+            border: none;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+        .modal-conteudo button:hover { background-color: #45a049; }
+    </style>
 </head>
 <body class="teste">
 
@@ -18,110 +49,86 @@
 </header>
 
 <form class="container-cadastro" th:action="@{/usuarios/salvar}" method="POST" th:object="${usuario}">
-    <!-- Informa��es Pessoais -->
     <fieldset class="campo">
         <legend>Informações Pessoais</legend>
         <div class="campo-grupo">
             <div class="campo">
                 <label for="nome">Nome:</label>
-                <input type="text" id="nome" th:field="*{nome}" placeholder="Digite seu nome completo" required>
+                <input type="text" id="nome" th:field="*{nome}" required>
             </div>
             <div class="campo">
                 <label for="email">Email:</label>
-                <input type="email" id="email" th:field="*{email}" placeholder="E-mail"
-                       pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}"
-                       title="Insira um e-mail válido" oninput="validarEmailCadastro()">
-                <small id="feedback-email" style="display:none; color: #e57373;">Insira um e-mail válido</small>
-            </div>
-            <div class="campo">
-                <label for="cpf">CPF:</label>
-                <input type="text" id="cpf" th:field="*{cpf}" placeholder="Digite seu CPF no formato 000.000.000-00" required
-                       pattern="\d{3}\.\d{3}\.\d{3}-\d{2}" title="Insira um CPF válido" oninput="validarCpfCadastro()">
-                <small id="feedback-cpf" style="display:none; color: #e57373;">Insira um CPF válido no formato 000.000.000-00</small>
+                <input type="email" id="email" th:field="*{email}" required>
             </div>
             <div class="campo">
                 <label for="telefone">Telefone:</label>
-                <input type="text" id="telefone" th:field="*{telefone}" placeholder="Digite seu telefone"
-                       pattern="^\d{9,15}$" title="O telefone deve ter entre 9 e 15 dígitos" required
-                       oninput="validarTelefone()">
-                <small id="feedback-telefone" style="display:none; color: #e57373;">Insira um telefone válido</small>
+                <input type="text" id="telefone" th:field="*{telefone}" required>
             </div>
             <div class="campo">
                 <label for="senha">Senha:</label>
-                <input type="password" id="senha" th:field="*{senha}" placeholder="Digite uma senha" required minlength="6" oninput="validarSenha()">
-                <small id="feedback-senha" style="display:none; color: #e57373;">A senha deve ter pelo menos 6 caracteres</small>
+                <input type="password" id="senha" th:field="*{senha}" required>
             </div>
             <div class="campo">
-                <label for="confirmarSenha">Confirmar Senha:</label>
-                <input type="password" id="confirmarSenha" placeholder="Confirme sua senha" required oninput="validarConfirmarSenha()">
-                <small id="feedback-confirmarSenha" style="display:none; color: #e57373;">As senhas não coincidem</small>
+                <label for="cpf">CPF:</label>
+                <input type="text" id="cpf" th:field="*{cpf}" required>
             </div>
         </div>
     </fieldset>
 
-    <!-- Endereço -->
     <fieldset class="campo">
         <legend>Endereço</legend>
         <div class="campo-grupo">
             <div class="campo">
                 <label for="cep">CEP:</label>
-                <input type="text" id="cep" th:field="*{cep}" placeholder="Digite o CEP" required minlength="8" maxlength="8" pattern="\d{8}" oninput="validarCEP()" />
-                <small id="feedback-cep" style="display:none; color: #e57373;">Insira um CEP válido (8 dígitos)</small>
+                <input type="text" id="cep" th:field="*{cep}" required>
             </div>
             <div class="campo">
                 <label for="rua">Rua:</label>
-                <input type="text" id="rua" th:field="*{rua}" placeholder="Ex.: Avenida Paulista" required>
+                <input type="text" id="rua" th:field="*{rua}" required>
             </div>
             <div class="campo">
                 <label for="numero">Número:</label>
-                <input type="text" id="numero" th:field="*{numero}" placeholder="Número da residência" required>
+                <input type="text" id="numero" th:field="*{numero}" required>
             </div>
-        </div>
-        <div class="campo">
             <div class="campo">
                 <label for="bairro">Bairro:</label>
-                <input type="text" id="bairro" th:field="*{bairro}" placeholder="Ex.: Centro" required>
+                <input type="text" id="bairro" th:field="*{bairro}" required>
             </div>
             <div class="campo">
                 <label for="cidade">Cidade:</label>
-                <input type="text" id="cidade" th:field="*{cidade}" placeholder="Ex.: São Paulo" required>
+                <input type="text" id="cidade" th:field="*{cidade}" required>
             </div>
             <div class="campo">
                 <label for="estado">Estado:</label>
-                <input type="text" id="estado" th:field="*{estado}" placeholder="Ex.: SP" required>
+                <input type="text" id="estado" th:field="*{estado}" required>
             </div>
-        </div>
-        <div class="campo">
-            <label for="complemento">Complemento:</label>
-            <input type="text" id="complemento" th:field="*{complemento}" placeholder="Complementos (se necessário)">
+            <div class="campo">
+                <label for="complemento">Complemento:</label>
+                <input type="text" id="complemento" th:field="*{complemento}">
+            </div>
         </div>
     </fieldset>
 
     <input type="hidden" th:field="*{tipoUsuario}" value="comum">
-    <button type="submit" id="btnSubmit">Cadastrar</button>
+
+    <button type="submit">Cadastrar</button>
 </form>
 
-<footer>
-    <div class="footer-container">
-        <div class="footer-section">
-            <h4>Horário de Funcionamento</h4>
-            <p>De seg à sex das 08h às 20h</p>
-            <p>Sáb e dom das 10h às 18h</p>
-        </div>
-        <div class="footer-section">
-            <h4>Entre em Contato</h4>
-            <a href="https://www.instagram.com" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-            <a href="https://www.facebook.com" target="_blank" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
-            <a href="https://wa.me/559999999999" target="_blank" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
-        </div>
-        <div class="footer-section">
-            <h4>Endereço</h4>
-            <p>Rua das Flores, 123, Taboão da Serra - SP</p>
-            <p>Telefone: (11) 4787-7355</p>
-        </div>
+<div class="modal-sucesso" id="modalSucesso" th:if="${sucesso}">
+    <div class="modal-conteudo">
+        <h2>Usuário Cadastrado Com Sucesso!</h2>
+        <button onclick="window.location.href='../login'">OK</button>
     </div>
-</footer>
+</div>
 
-<script th:src="@{/js/validacoes.js}"></script>
+<script th:inline="javascript">
+    /*<![CDATA[*/
+    const sucesso = /*[[${sucesso}]]*/ false;
+    if (sucesso) {
+        document.getElementById("modalSucesso").style.display = "flex";
+    }
+    /*]]>*/
+</script>
+
 </body>
 </html>

@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Floricultura Flores & Cores</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/estilo.css}">
+    <style>
+        .modal-sucesso {
+            display: none;
+            position: fixed;
+            z-index: 999;
+            left: 0; top: 0;
+            width: 100%; height: 100%;
+            background-color: rgba(0, 0, 0, 0.4);
+            justify-content: center;
+            align-items: center;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .modal-conteudo {
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            max-width: 350px;
+        }
+
+        .modal-conteudo h2 {
+            color: #4CAF50;
+            margin-bottom: 15px;
+        }
+
+        .modal-conteudo button {
+            background-color: #4CAF50;
+            border: none;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        .modal-conteudo button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1><a th:href="@{/}" style="text-decoration: none; color: white;">Floricultura Flores & Cores</a></h1>
+</header>
+
+<div class="container-login">
+    <h2>Realize o Seu Login</h2>
+    <br>
+    <form th:action="@{/login}" method="POST">
+        <div class="campo">
+            <label for="email">E-mail:</label>
+            <input type="email" id="email" name="email" required>
+        </div>
+        <div class="campo">
+            <label for="senha">Senha:</label>
+            <input type="password" id="senha" name="senha" required>
+        </div>
+        <button type="submit">Entrar</button>
+    </form>
+    <br>
+    <p>Ou</p>
+    <br>
+    <label><a th:href="@{/usuarios/novo}" class="link">Ainda não tem uma conta? Cadastre-se aqui!</a></label>
+    <br><br>
+    <p style="color: red;" th:text="${erro}"></p>
+</div>
+
+<div class="modal-sucesso" id="modalSucesso" th:if="${sucesso}">
+    <div class="modal-conteudo">
+        <h2>Cadastrado com sucesso!</h2>
+        <button onclick="window.location.href='/login'">OK</button>
+    </div>
+</div>
+
+<script th:inline="javascript">
+    /*<![CDATA[*/
+        const sucesso = /*[[${sucesso}]]*/ false;
+        if(sucesso){
+            document.getElementById("modalSucesso").style.display = "flex";
+        }
+    /*]]>*/
+</script>
+
+<footer>
+    <div class="footer-container">
+        <div class="footer-section">
+            <h4>Horário de Funcionamento</h4>
+            <p>De seg à sex das 08h às 20h</p>
+            <p>Sáb e dom das 10h às 18h</p>
+        </div>
+        <div class="footer-section">
+            <h4>Entre em Contato</h4>
+            <a href="https://www.instagram.com" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+            <a href="https://www.facebook.com" target="_blank" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+            <a href="https://wa.me/559999999999" target="_blank" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+        </div>
+        <div class="footer-section">
+            <h4>Endereço</h4>
+            <p>Rua das Flores, 123, Taboão da Serra - SP</p>
+            <p>Telefone: (11) 4787-7355</p>
+        </div>
+    </div>
+</footer>
+
+</body>
+</html>
