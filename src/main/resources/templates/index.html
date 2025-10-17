@@ -1,18 +1,59 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Floricultura Flores & Cores</title>
-    <link rel="stylesheet" th:href="@{/css/estilo.css}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bem-vindo à Floricultura Flores & Cores</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{estilo.css}">
 </head>
 <body>
-<h1>Bem-vindo à Floricultura Flores & Cores</h1>
-<p>Escolha uma opção abaixo para gerenciar:</p>
 
-<div class="botoes">
-    <a th:href="@{/usuarios/novo}">Usuários</a>
-    <a th:href="@{/flores/novo}">Flores</a>
-    <a th:href="@{/outrosprodutos}">Outros Produtos</a>
+<header>
+    <h1><a th:href="@{/}" style="text-decoration: none; color: white;">Floricultura Flores & Cores</a></h1>
+    <nav class="nav-login">
+        <a th:href="@{/visitante}">Entrar como Visitante</a>
+    </nav>
+</header>
+
+<div class="welcome-container">
+    <h1>Bem-vindo à Floricultura Flores & Cores!</h1>
+    <p>Explore nossas flores e arranjos encantadores para todas as ocasiões.</p>
+
+    <div class="question-box">
+        <p>Deseja logar ou cadastrar?</p>
+        <a th:href="@{/login}">Login</a>
+        <a th:href="@{/usuarios/novo}">Cadastrar</a>
+    </div>
 </div>
+
+<footer>
+    <div class="footer-container">
+        <div class="footer-section">
+            <h4>Horário de Funcionamento</h4>
+            <p>De seg à sex das 08h às 20h</p>
+            <p>Sáb e dom das 10h às 18h</p>
+        </div>
+        <div class="footer-section">
+            <h4>Entre em Contato</h4>
+            <a href="https://www.instagram.com" target="_blank" aria-label="Instagram">
+                <i class="fab fa-instagram"></i>
+            </a>
+            <a href="https://www.facebook.com" target="_blank" aria-label="Facebook">
+                <i class="fab fa-facebook-f"></i>
+            </a>
+            <a href="https://wa.me/559999999999" target="_blank" aria-label="WhatsApp">
+                <i class="fab fa-whatsapp"></i>
+            </a>
+        </div>
+        <div class="footer-section">
+            <h4>Endereço</h4>
+            <p>Rua das Flores, 123, Taboão da Serra - SP</p>
+            <p>Telefone: (11) 4787-7355</p>
+        </div>
+    </div>
+</footer>
+
 </body>
 </html>

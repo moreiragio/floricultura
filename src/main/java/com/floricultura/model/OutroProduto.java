@@ -3,7 +3,7 @@ package com.floricultura.model;
 import jakarta.persistence.*;
 
 @Entity
-public class Flor {
+public class OutroProduto {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -11,13 +11,13 @@ public class Flor {
     private String nome;
     private int quantidade;
     private double valor;
-    private String cor;
     private String descricao;
-    private String imagem;
 
     @ManyToOne
     @JoinColumn(name = "id_funcionario")
     private Funcionario funcionario;
+
+    private Integer idCategoriaProduto; // caso queira adicionar FK depois
 
     // getters e setters
 }

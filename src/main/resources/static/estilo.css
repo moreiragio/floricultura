@@ -1,29 +1,1176 @@
+/* Reset básico */
+* {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
+
+html, body {
+    height: 100%;
+}
+
 body {
-    font-family: Arial, sans-serif;
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    padding: 0;
+    background: linear-gradient(135deg, #e0f2f1, #fffde7);
+    color: #333;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+
+}
+
+body.pagina-flores header {
+    width: 100%;
+    margin: 0;
+    padding: 20px 0; /* Apenas espaçamento vertical */
+    box-sizing: border-box;
+}
+
+.pagina-flores {
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    padding: 0;
+    background: linear-gradient(135deg, #e0f2f1, #fffde7);
+    color: #333;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Ajuste o alinhamento se necessário */
+}
+
+
+footer {
+    background: linear-gradient(135deg, #388e3c, #b2e8b2); /* Gradiente igual ao header */
+    color: white;
+    padding: 20px; /* Espaçamento interno do footer */
     text-align: center;
-    padding: 50px;
+    width: 100%;
+    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+    margin-top: auto; /* Adicionando essa linha */
+}
+
+
+.footer-container {
+    display: flex;
+    justify-content: space-around; /* Espaçamento uniforme entre as seções */
+    align-items: center; /* Centraliza verticalmente os itens */
+    max-width: 1200px;
+    margin: 0 auto; /* Centraliza o container horizontalmente */
+    gap: 20px; /* Espaçamento adicional entre as seções, caso necessário */
+}
+
+.footer-section {
+    text-align: center; /* Centraliza o conteúdo de cada seção */
+    flex: 1; /* Garante que todas as seções tenham tamanho proporcional */
+    min-width: 180px; /* Largura mínima para não quebrar em telas menores */
+}
+
+.footer-section h4 {
+    margin-bottom: 10px;
+    font-size: 1.2rem;
+    color: #ffffff;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+.footer-section p,
+.footer-section a {
+    margin: 5px 0;
+    font-size: 1rem;
+    color: white;
+    text-decoration: none;
+}
+
+.footer-section a:hover {
+    color: #2e7d32; /* Destaca o link ao passar o mouse */
+}
+
+.footer-section i {
+    font-size: 24px; /* Tamanho dos ícones */
+    margin: 0 10px; /* Espaçamento horizontal entre ícones */
+    transition: transform 0.2s ease;
+    color: white;
+}
+
+.footer-section i:hover {
+    transform: scale(1.2); /* Efeito de zoom ao passar o mouse */
+}
+
+@media (max-width: 768px) {
+    .footer-container {
+        flex-direction: column; /* Empilha as seções em telas menores */
+        gap: 15px; /* Reduz o espaçamento */
+    }
+}
+
+
+/* Estrutura do layout */
+.teste {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    height: 100vh;
+}
+
+header {
+    background: linear-gradient(135deg, #388e3c, #b2e8b2); /* Gradiente verde escuro e verde suave */
+    color: transparent;
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    animation: slide-down 0.8s ease; /* Animação ao entrar */
+    position: relative;
+    transition: background 0.5s ease; /* Adiciona transição ao fundo */
+}
+
+header:hover {
+    background: linear-gradient(135deg, #2e7d32, #b2e8b2); /* Muda a cor do gradiente ao passar o mouse */
+}
+header h1 {
+    background: linear-gradient(135deg, #4caf50, #2e7d32); /* Gradiente verde para o texto */
+    -webkit-background-clip: text;
+    background-clip: text;
+}
+
+@keyframes slide-down {
+    from {
+        transform: translateY(-30px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
 }
 
 h1 {
-    color: #2e8b57;
+    margin: 0; 
+    font-size: 2em; /* Tamanho do título */
 }
 
-.botoes {
-    margin-top: 30px;
+.nav-central {
+    display: flex;
+    justify-content: center; 
+    flex-wrap: wrap; 
+    flex: 1; 
+    gap: 15px; /* Espaçamento entre os links */
+    align-items: center; /* Alinha os itens verticalmente ao centro */
 }
 
-.botoes a {
-    display: inline-block;
-    margin: 10px;
-    padding: 15px 25px;
-    background-color: #2e8b57;
-    color: white;
+.nav-central a {
+    color: #2e7d32; /* Verde escuro para os links */
     text-decoration: none;
-    border-radius: 8px;
-    font-weight: bold;
+    padding: 12px 20px;
+    border-radius: 30px; /* Borda arredondada */
+    background: rgba(255, 255, 255, 0.9); /* Fundo branco semi-transparente */
+    transition: background-color 0.3s, transform 0.3s; /* Adiciona transformação ao hover */
+    font-weight: bold; /* Texto em negrito */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Caso haja poucos botões, joga-os para a direita */
+.nav-central a:nth-child(n+1) {
+    margin-left: auto; /* Alinha os botões à direita caso houver poucos */
+}
+
+
+.nav-central a:hover {
+    background: rgba(255, 255, 255, 1); /* Efeito ao passar o mouse */
+    transform: scale(1.05); /* Efeito de aumento */
+}
+
+
+/* Container de busca com flexbox */
+.form-busca {
+    display: flex;
+    align-items: center;
+    position: relative;
+}
+
+/* Campo de busca */
+.campo-busca {
+    padding: 8px 15px;
+    border: 1px solid #ccc;
+    border-radius: 30px;
+    font-size: 14px;
+    width: 100%;
+    transition: border-color 0.3s ease;
+    background: rgba(255, 255, 255, 0.9);
+    transition: background-color 0.3s, transform 0.3s;
+}
+.campo-busca:hover {
+    background: rgba(255, 255, 255, 1); /* Efeito ao passar o mouse */
+    transform: scale(1.05); /* Efeito de aumento */
+}
+
+/* Foco do campo de busca */
+.campo-busca:focus {
+    border-color: #007bff;
+    outline: none;
+}
+
+/* Botão de busca ao lado do campo */
+.form-busca .btn-buscar2 {
+    border-radius: 50%;
+    padding: 5px;
+    width: 40px;
+    height: 35px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    font-size: 20px;
+    transition: transform 0.1s ease;
+    background-color: #218838;
+    border: none;
+    margin-left: 10px;
+}
+
+/* Efeito de hover do botão */
+.form-busca .btn-buscar2:hover {
+    transform: scale(1.1);
+    background-color: #218838;
+    opacity: 0.9;
+}
+
+/* Ícone dentro do botão */
+.form-busca .btn-buscar2 i {
+    color: white;
+    font-size: 18px;
+}
+
+
+
+/* Menu hamburguer */
+.menu-icon {
+    font-size: 28px;
+    cursor: pointer;
+    display: none;
+}
+.nav-login {
+    display: flex; 
+    align-items: center; 
+    margin-left: auto; 
+}
+
+.nav-login a {
+    color: #2e7d32; /* Verde escuro para os links */
+    text-decoration: none;
+    padding: 12px 20px;
+    margin-left: 10px; 
+    border-radius: 30px; /* Borda arredondada */
+    background: rgba(255, 255, 255, 0.9);
     transition: background-color 0.3s;
 }
 
-.botoes a:hover {
-    background-color: #3cb371;
+.nav-login a:hover {
+    background: rgba(255, 255, 255, 1); /* Efeito ao passar o mouse */
+}
+
+.menu-icon {
+    font-size: 24px;
+    cursor: pointer;
+    margin-left: 10px; 
+}
+
+/* Boas-vindas e perguntas */
+.welcome-container {
+    text-align: center; 
+    padding: 50px 20px; 
+    flex: 1;
+}
+
+.welcome-container h1 {
+    font-size: 2.5em; 
+    margin-bottom: 20px; 
+    color: #2e7d32; /* Verde escuro para melhor legibilidade */
+}
+
+.welcome-container p {
+    font-size: 1.2em; 
+    margin-bottom: 30px; 
+    color: #4caf50; /* Verde pastel claro */
+}
+
+.question-box {
+    background-color: #ffffff; 
+    padding: 20px; 
+    border-radius: 10px; 
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); 
+    display: inline-block; 
+    margin: 0 auto; 
+    animation: fade-in 1.5s; /* Animação de entrada */
+}
+
+@keyframes fade-in {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+.question-box p {
+    margin-bottom: 15px; 
+    font-size: 1.2em; 
+    color: #2e7d32; /* Verde escuro para melhor legibilidade */
+}
+
+.question-box a {
+    display: inline-block; 
+    padding: 10px 20px; 
+    margin: 5px; 
+    background: #4caf50; /* Verde pastel */
+    color: white; 
+    text-decoration: none; 
+    border-radius: 30px; 
+    transition: background-color 0.3s; 
+}
+
+.question-box a:hover {
+    background: #388e3c; /* Verde mais escuro */
+}
+
+/* Estilos adicionais para os campos de login e flores */
+.container-login {
+    min-width: 500px;
+    margin: 50px auto; 
+    padding: 20px;
+    background-color: #ffffff; 
+    border-radius: 10px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    align-items: center;
+    animation: fade-in 1.5s; /* Animação de entrada */
+}
+
+.container-login p {
+    text-align: center;
+}
+
+.container-login h2 {
+    text-align: center;
+}
+
+/* Estilos adicionais para os campos de login e flores */
+.container h2 {
+    margin-top: 20px;
+    text-align: center;
+    color: #388e3c;
+}
+
+.campo {
+    margin-bottom: 15px; 
+}
+
+.campo label {
+    display: block; 
+    margin-bottom: 5px; 
+}
+
+.campo input {
+    width: 100%; /* Aumentando para 100% */
+    padding: 12px; /* Aumentando o preenchimento */
+    border: 1px solid #ccc; 
+    border-radius: 5px; 
+    transition: border-color 0.3s; /* Transição para foco */
+}
+
+.campo input:focus {
+    border-color: #4caf50; /* Borda verde ao focar */
+}
+
+button[type="submit"] {
+    width: 100%; 
+    padding: 12px; /* Aumentando o preenchimento */
+    background: #4caf50; /* Verde pastel */
+    color: white; /* Cor do texto em branco */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+button[type="submit"]:hover {
+    background: #388e3c; /* Verde mais escuro */
+}
+
+.flores-venda {
+    max-width: 1200px; /* Limita a largura da seção para manter o layout elegante */
+    width: 100%; /* Permite que ocupe todo o espaço em telas menores */
+    background: linear-gradient(135deg, #388e3c, #b2e8b2);
+    color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    margin: 20px 10px; /* Margem lateral para evitar colar nas bordas em telas pequenas */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    transition: background 0.5s ease, transform 0.3s ease;
+}
+
+.flores-venda h2 {
+    text-align: center;
+}
+
+.flores-venda:hover {
+    background: linear-gradient(135deg, #2e7d32, #aee6aa);
+    transform: translateY(-5px);
+}
+
+.grid-flores {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 20px;
+    padding: 0 10px;
+    justify-content: center; /* Centraliza o grid */
+}
+
+.flor-card {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.flor-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Imagem da flor */
+.flor-imagem img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+}
+
+/* Detalhes da flor */
+.flor-detalhes {
+    padding: 10px;
+    text-align: left;
+}
+
+.flor-detalhes h3 {
+    margin: 0;
+    font-size: 1.2rem;
+    color: #333;
+}
+
+.flor-detalhes p {
+    margin: 5px 0;
+    font-size: 0.9rem;
+    color: #555;
+}
+
+/* Botões de ações */
+.flor-acoes {
+    margin-top: auto;
+    display: flex;
+    justify-content: space-around;
+    padding: 10px;
+    background-color: #f7f7f7;
+    border-top: 1px solid #ddd;
+}
+
+.btn {
+    font-size: 0.9rem;
+    padding: 8px 12px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.saiba-mais {
+    background-color: #007bff;
+    color: #fff;
+}
+
+.saiba-mais:hover {
+    background-color: #0056b3;
+}
+
+.adicionar-carrinho {
+    background-color: #28a745;
+    color: #fff;
+}
+
+.adicionar-carrinho:hover {
+    background-color: #1e7e34;
+}
+
+.flor {
+    font-size: 1.2em;
+    color: #388e3c;
+    font-weight: bold;
+    margin: 10px;
+    padding: 5px;
+    border-radius: 10px;
+    background-color: #b2e8b2;
+}
+
+/* Botões padrão do painel */
+.button-link {
+    display: inline-block;
+    padding: 12px 20px;
+    font-size: 1.1em; /* Tamanho da fonte ligeiramente maior */
+    font-weight: bold; /* Fonte em negrito */
+    text-align: center;
+    text-decoration: none;
+    color: #ffffff; /* Texto branco */
+    background: #4caf50; /* Fundo verde pastel */
+    border-radius: 30px; /* Borda arredondada */
+    transition: background-color 0.3s, transform 0.3s; /* Transição suave para hover */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Sombra para destacar */
+}
+
+.button-link:hover {
+    background: #388e3c; /* Fundo verde mais escuro */
+    transform: scale(1.05); /* Leve aumento ao passar o mouse */
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3); /* Aumenta a sombra no hover */
+}
+
+/* Seções do painel */
+.secoes {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    gap: 20px;
+    margin: 40px auto;
+    padding: 20px;
+    max-width: 1200px;
+}
+
+.secao {
+    background: #f1f8e9; /* Fundo verde muito claro */
+    border-radius: 15px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); /* Sombra sutil */
+    padding: 20px;
+    text-align: center;
+    width: 100%;
+    max-width: 300px; /* Largura máxima */
+}
+
+.secao h3 {
+    font-size: 1.5em;
+    margin-bottom: 15px;
+    color: #2e7d32; /* Verde escuro */
+}
+
+.secao ul {
+    list-style: none;
+    padding: 0;
+}
+
+.secao li {
+    margin-bottom: 15px;
+}
+
+/* Layout responsivo */
+@media (max-width: 768px) {
+    .secoes {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .secao {
+        width: 100%;
+        max-width: 90%; /* Ajusta largura no celular */
+    }
+}
+
+/* Botão "Sair" específico */
+.logout-button {
+    color: #ffffff; /* Texto branco */
+    padding: 10px 20px;
+    border-radius: 30px;
+    transition: background-color 0.3s, transform 0.3s;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.logout-button:hover {
+    background: #218838; /* Vermelho mais escuro no hover */
+    transform: scale(1.05); /* Leve aumento ao passar o mouse */
+}
+
+/* Estilo Padronizado para Tabelas */
+.tabela-flores {
+    width: 85%; /* Define a largura da tabela */
+    margin: 0 auto; /* Centraliza a tabela */
+    border-collapse: collapse;
+     margin-bottom: 40px;
+    margin-top: 20px;
+    background: rgba(255, 255, 255, 0.9); /* Fundo branco suave */
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); /* Sombra leve */
+    border-radius: 10px; /* Bordas arredondadas */
+    overflow: hidden; /* Esconde o excesso nas bordas arredondadas */
+}
+
+.tabela-flores th, .tabela-flores td {
+    padding: 15px;
+    text-align: center;
+    border-bottom: 1px solid #e0e0e0; /* Divisória clara */
+}
+
+.tabela-flores th {
+    background-color: #4caf50; /* Verde pastel */
+    color: white;
+    font-size: 1.1em;
+    font-weight: bold;
+}
+
+.tabela-flores tr:nth-child(even) {
+    background-color: #f8f9fa; /* Linhas alternadas */
+}
+
+.tabela-flores tr:hover {
+    background-color: #e0f2f1; /* Realce ao passar o mouse */
+}
+
+.tabela-flores td {
+    font-size: 1em;
+    color: #333; /* Texto em tom neutro */
+}
+
+.tabela-flores a, .tabela-flores button {
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+    padding: 8px 15px;
+    border-radius: 5px;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+.tabela-flores a:hover, .tabela-flores button:hover {
+    transform: scale(1.05);
+}
+
+.btn-acao {
+    background-color: #28a745; /* Cor verde */
+    color: white;
+    padding: 5px 10px;
+    border-radius: 5px;
+    text-align: center;
+    font-size: 14px;
+    transition: all 0.3s ease; /* Transição para hover */
+}
+
+.btn-acao:hover {
+    background-color: #218838; /* Verde mais escuro no hover */
+    transform: scale(1.05); /* Aumenta levemente */
+    cursor: pointer; /* Indica clicável */
+}
+
+/* Botão Excluir com hover (já existente) */
+.btn-excluir {
+    background-color: #dc3545; /* Vermelho */
+    color: white;
+    padding: 5px 10px;
+    border-radius: 5px;
+    text-align: center;
+    font-size: 14px;
+    transition: all 0.3s ease;
+}
+
+.btn-excluir:hover {
+    background-color: #c82333; /* Vermelho mais escuro */
+    transform: scale(1.05); /* Aumenta levemente */
+    cursor: pointer;
+}
+
+
+
+/* Estilo do Modal */
+        .modal {
+            display: none;  /* Inicialmente invisível */
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);  /* Fundo semitransparente e mais escuro */
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .modal-conteudo {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            width: 300px;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .modal h3 {
+            font-size: 18px;
+            color: #333;
+            margin-bottom: 15px;
+        }
+
+        .modal p {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 20px;
+        }
+
+        .modal-botoes {
+            display: flex;
+            justify-content: space-around;
+            gap: 10px;
+        }
+
+        .modal-botoes button {
+            padding: 10px 20px;
+            font-size: 16px;
+            border: none;
+            border-radius: 8px;  /* Bordas arredondadas */
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        /* Botão de Confirmação (Sim, Excluir) */
+        .btn-confirmar {
+            background-color: #28a745; /* Verde */
+            color: white;
+            width: 100%;
+        }
+
+        .btn-confirmar:hover {
+            background-color: #218838;
+            opacity: 0.9;
+        }
+
+        /* Botão de Cancelar */
+        .btn-cancelar {
+            background-color: #dc3545; /* Vermelho */
+            color: white;
+            width: 100%;
+        }
+
+        .btn-cancelar:hover {
+            background-color: #c82333;
+            opacity: 0.9;
+        }
+        
+/* Estilos para a barrinha do menu */
+.menu-icon {
+    font-size: 30px;
+    cursor: pointer;
+    display: block;
+    color: white;
+}
+
+/* Estilos para o Modal */
+.menu-modal {
+    display: none; /* Ocultar o modal por padrão */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Cor de fundo semi-transparente */
+    z-index: 1000; /* Fica acima de outros elementos */
+}
+
+.menu-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    width: 300px;
+    text-align: center;
+}
+
+.menu-content a {
+    display: block;
+    padding: 10px;
+    text-decoration: none;
+    color: #2e7d32;
+    margin: 5px 0;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.menu-content a:hover {
+    background-color: #f1f1f1;
+}
+
+.close-menu {
+    position: absolute;
+    top: 5px;
+    right: 10px;
+    font-size: 30px;
+    cursor: pointer;
+    color: #2e7d32;
+}
+
+/* Estilo para a seção de perfil */
+.perfil-usuario {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    margin: 20px auto; /* Centraliza horizontalmente */
+    padding: 20px;
+    max-width: 500px; /* Largura máxima reduzida */
+    font-family: 'Roboto', sans-serif;
+    text-align: center; /* Centraliza o conteúdo de texto */
+}
+
+.perfil-usuario h2 {
+    font-size: 30px; /* Aumenta o tamanho da fonte do título */
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.dados-usuario {
+    display: block; /* Organiza os itens verticalmente */
+    font-size: 18px;
+    color: #555;
+    text-align: left; /* Alinha os dados à esquerda */
+    margin-top: 20px;
+}
+
+.dados-usuario p {
+    margin: 10px 0;
+}
+
+.dados-usuario strong {
+    font-weight: bold;
+    color: #333;
+    font-size: 20px; /* Aumenta o tamanho da fonte dos labels */
+    display: inline-block; /* Garante que o título e a informação fiquem na mesma linha */
+    width: 150px; /* Largura fixa para o título */
+    text-align: right; /* Alinha o texto à direita */
+    margin-right: 10px; /* Espaço entre o título e a informação */
+}
+
+.botao-editar {
+    display: inline-block;
+    padding: 15px 25px;
+    margin-top: 30px;
+    background-color: #28a745;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 18px; /* Aumenta o tamanho da fonte do botão */
+    text-align: center;
+}
+
+.botao-editar:hover {
+    background-color: #218838;
+}
+
+.mensagem {
+    background-color: #dff0d8;
+    color: #3c763d;
+    border: 1px solid #d0e9c6;
+    padding: 10px;
+    border-radius: 5px;
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+.mensagem p {
+    margin: 0;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.link {
+    width: 450px; /* Define a largura fixa (ajuste conforme necessário) */
+    padding: 12px; /* Aumentando o preenchimento */
+    background: #4caf50; /* Verde pastel */
+    color: white; /* Cor do texto em branco */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s;
+    text-align: center; /* Centraliza o texto */
+    margin: 0 auto; /* Garante centralização horizontal */
+    display: block; /* Garante que o botão se comporte como bloco */
+}
+
+.link:hover {
+    background: #388e3c; /* Verde mais escuro */
+}
+
+
+
+
+.container-cadastro {
+    width: 80%;
+    max-width: 800px;
+    margin: 30px auto;
+    margin-bottom: 20px;
+    background-color: white;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.container-cadastro fieldset {
+    border: 1px solid #ccc;
+    padding: 15px;
+    margin-bottom: 20px;
+}
+
+.container-cadastro legend {
+    font-weight: bold;
+    font-size: 1.2em;
+}
+
+/* Campos em grupo de 3 por linha */
+.container-cadastro campo-grupo {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 15px;
+}
+
+.container-cadastro campo {
+    width: 30%;
+}
+
+.container-cadastro campo input,
+.container-cadastro campo textarea {
+    width: 100%;
+    padding: 8px;
+    margin-top: 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.container-cadastro campo label {
+    font-weight: bold;
+}
+
+.container-cadastro input {
+    flex: 1 1 calc(50% - 10px); /* Cada input ocupa 50% menos o espaço do gap */
+    box-sizing: border-box; /* Inclui padding e bordas na largura total */
+    padding: 10px; /* Espaçamento interno dos campos */
+}
+
+.container-cadastro label {
+    flex: 1 1 100%; /* Os labels ocupam 100% da largura */
+    margin-bottom: 5px; /* Espaço abaixo do label */
+}
+
+
+        .container-cadastro h2 {
+            text-align: center; /* Centraliza o título */
+            margin-bottom: 20px; /* Espaçamento inferior do título */
+        }
+
+        .container-cadastro campo {
+            display: flex;
+            flex-direction: column; /* Coloca o label acima do input */
+            margin-bottom: 15px; /* Espaçamento entre os campos */
+        }
+
+        .container-cadastro campo label {
+            margin-bottom: 5px; /* Espaçamento entre o label e o input */
+            font-weight: bold; /* Destaca o label */
+        }
+
+        .container-cadastro campo input {
+            width: 100%; /* Faz o input ocupar toda a largura disponível */
+            padding: 10px; /* Aumenta o preenchimento interno */
+            border: 1px solid #ccc; /* Borda cinza clara */
+            border-radius: 5px; /* Bordas arredondadas */
+            font-size: 16px; /* Aumenta o tamanho da fonte */
+        }
+
+        .container-cadastro button {
+            width: 100%; /* Faz o botão ocupar toda a largura do container */
+            padding: 12px; /* Aumenta o preenchimento interno */
+            background: #4caf50; /* Verde pastel */
+            color: white; /* Texto branco */
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px; /* Aumenta o tamanho da fonte */
+            transition: background 0.3s;
+        }
+
+        .container-cadastro button:hover {
+            background: #388e3c; /* Verde mais escuro */
+        }
+
+        .container-cadastro p {
+            text-align: center; /* Centraliza o texto do link */
+            margin-top: 20px; /* Espaçamento superior do parágrafo */
+        }
+
+        .container-cadastro p a {
+            color: #4caf50; /* Cor do link em verde pastel */
+            text-decoration: none; /* Remove o sublinhado */
+        }
+
+        .container-cadastro p a:hover {
+            text-decoration: underline; /* Adiciona sublinhado no hover */
+        }
+        
+        
+.campo input:valid {
+    border-color: #4caf50; /* Verde ao preencher corretamente */
+    box-shadow: 0 0 5px #4caf50; /* Brilho leve */
+}
+
+.campo input:invalid {
+    border-color: #e57373; /* Vermelho se inválido */
+    box-shadow: 0 0 5px #e57373;
+}
+
+.campo input:focus:invalid + small {
+    display: block; /* Exibe a mensagem quando o campo está com erro */
+}
+
+.campo input:focus:valid + small {
+    display: none; /* Esconde a mensagem quando o campo é válido */
+}
+
+
+:root {
+    --verde-escuro: #2e7d32;
+    --verde-pastel: #4caf50;
+    --branco: #ffffff;
+    --cinza-claro: #e0e0e0;
+}
+
+.campo select {
+    width: 100%;
+    padding: 12px 15px;
+    font-size: 16px;
+    color: #555;
+    background-color: #f8f8f8;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    appearance: none; /* Remover estilo nativo do select */
+    outline: none;
+    transition: all 0.3s ease-in-out;
+}
+
+/* Estilo para o select ao passar o mouse */
+.campo select:hover {
+    border-color: #888;
+}
+
+/* Estilo para o select quando estiver em foco */
+.campo select:focus {
+    border-color: #5b9bd5;
+    box-shadow: 0 0 5px rgba(91, 155, 213, 0.5);
+}
+
+/* Estilo para o select quando uma opção estiver selecionada */
+.campo select option {
+    padding: 10px;
+    background-color: #fff;
+    color: #333;
+    font-size: 16px;
+}
+
+/* Estilo para o select quando a opção estiver selecionada */
+.campo select option[selected] {
+    background-color: #5b9bd5;
+    color: #fff;
+}
+
+/* Estilo para adicionar uma seta personalizada no select */
+.campo select::-ms-expand {
+    display: none; /* Remover a seta padrão no IE */
+}
+
+.campo select::-webkit-appearance:none {
+    -webkit-appearance: none;
+    appearance: none;
+    background-image: url('data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%2024%2024%22%3E%3Cpath%20d%3D%22M12%2020l8-8H4z%22/%3E%3C/svg%3E');
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    background-size: 12px;
+}
+
+
+/* Estilo para os botões de navegação */
+.botaoesq, .botaodir {
+    position: absolute;
+    top: 30%; /* Ajuste para posicionar os botões mais para cima */
+    transform: translateY(-50%);
+    background-color: #388e3c; /* Cor de fundo */
+    color: white;
+    border: none;
+    font-size: 20px; /* Tamanho da fonte reduzido */
+    padding: 10px; /* Padding reduzido para deixar os botões menores */
+    border-radius: 50%; /* Torna os botões redondos */
+    cursor: pointer;
+    z-index: 10;
+    width: 40px; /* Largura fixa */
+    height: 40px; /* Altura fixa */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.botaoesq, .botaodir {
+    position: absolute;
+    top: 42%; /* Ajuste para posicionar os botões mais para cima */
+    transform: translateY(-50%);
+    background-color: #388e3c; /* Cor de fundo */
+    color: white;
+    border: none;
+    font-size: 20px; /* Tamanho da fonte reduzido */
+    padding: 10px; /* Padding reduzido para deixar os botões menores */
+    border-radius: 50%; /* Torna os botões redondos */
+    cursor: pointer;
+    z-index: 10;
+    width: 40px; /* Largura fixa */
+    height: 40px; /* Altura fixa */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Efeito de hover para os botões */
+.botaoesq:hover, .botaodir:hover {
+    background-color: #2c6f2b; /* Cor mais intensa no hover */
+}
+
+/* Reposicionamento do botão esquerdo (mais à direita) */
+#prevBtn {
+    left: 20px; /* Move o botão esquerdo mais para a direita */
+}
+
+/* Reposicionamento do botão direito (mais à esquerda) */
+#nextBtn {
+    right: 20px; /* Move o botão direito mais para a esquerda */
+}
+
+
+@media (max-width: 768px) {
+
+    .botaoesq, .botaodir {
+        font-size: 24px;
+        padding: 8px;
+    }
+}
+
+.imagens{
+    margin: 30px;
+}
+
+.imagens>img{
+    border-radius: 10px;
 }

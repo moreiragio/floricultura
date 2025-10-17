@@ -9,18 +9,16 @@ import org.springframework.web.bind.annotation.*;
 @Controller
 @RequestMapping("/usuarios")
 public class UsuarioController {
-
     private final UsuarioService service;
 
     public UsuarioController(UsuarioService service) {
         this.service = service;
     }
 
-
     @GetMapping
     public String listar(Model model) {
         model.addAttribute("usuarios", service.listarTodos());
-        return "usuarios/listar";
+        return "usuario/listarUsuario";
     }
 
     @GetMapping("/novo")
@@ -37,9 +35,9 @@ public class UsuarioController {
 
     @GetMapping("/editar/{id}")
     public String editarForm(@PathVariable Long id, Model model) {
-        Usuario usuario = service.buscarPorId(id).orElseThrow(() -> new IllegalArgumentException("Usuário inválido"));
+        Usuario usuario = service.buscarPorId(id).orElseThrow();
         model.addAttribute("usuario", usuario);
-        return "usuarios/form";
+        return "usuario/editarUsuario";
     }
 
     @GetMapping("/deletar/{id}")
