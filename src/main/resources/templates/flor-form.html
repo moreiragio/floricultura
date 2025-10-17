@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Cadastro de Flor</title>
+</head>
+<body>
+<h2>Cadastro de Flor</h2>
+<form th:action="@{/flores/salvar}" th:object="${flor}" method="post">
+    <input type="hidden" th:field="*{id}" />
+    Nome: <input th:field="*{nome}" /><br/>
+    Cor: <input th:field="*{cor}" /><br/>
+    Quantidade: <input th:field="*{quantidade}" type="number"/><br/>
+    Valor: <input th:field="*{valor}" type="number" step="0.01"/><br/>
+    Descrição: <input th:field="*{descricao}" /><br/>
+    <button type="submit">Salvar</button>
+</form>
+<a th:href="@{/flores}">Voltar</a>
+</body>
+</html>

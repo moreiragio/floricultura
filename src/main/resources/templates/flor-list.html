@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Flores</title>
+</head>
+<body>
+<h2>Flores Cadastradas</h2>
+<a th:href="@{/flores/novo}">Nova Flor</a>
+<table border="1">
+    <tr>
+        <th>ID</th>
+        <th>Nome</th>
+        <th>Cor</th>
+        <th>Quantidade</th>
+        <th>Valor</th>
+        <th>Descrição</th>
+        <th>Ações</th>
+    </tr>
+    <tr th:each="flor : ${flores}">
+        <td th:text="${flor.id}"></td>
+        <td th:text="${flor.nome}"></td>
+        <td th:text="${flor.cor}"></td>
+        <td th:text="${flor.quantidade}"></td>
+        <td th:text="${flor.valor}"></td>
+        <td th:text="${flor.descricao}"></td>
+        <td>
+            <a th:href="@{'/flores/editar/' + ${flor.id}}">Editar</a> |
+            <a th:href="@{'/flores/excluir/' + ${flor.id}}">Excluir</a>
+        </td>
+    </tr>
+</table>
+</body>
+</html>
