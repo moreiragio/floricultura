@@ -1,6 +1,11 @@
 package com.floricultura.repository;
 
-import com.floricultura.model.Funcionario;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+import com.floricultura.model.Funcionario;
 
-public interface FuncionarioRepository extends JpaRepository<Funcionario, Long> { }
+@Repository
+public interface FuncionarioRepository extends JpaRepository<Funcionario, Long> {
+
+    Funcionario findByEmailAndSenha(String email, String senha);
+}
