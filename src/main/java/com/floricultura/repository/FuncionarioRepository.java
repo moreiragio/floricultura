@@ -10,4 +10,9 @@ import java.util.Optional;
 public interface FuncionarioRepository extends JpaRepository<Funcionario, Long> {
 
     Optional<Funcionario> findByEmailAndSenha(String email, String senha);
+
+    boolean existsByEmail(String email);
+    boolean existsByCpf(String cpf);
+    boolean existsByTelefone(String telefone);
+
 }

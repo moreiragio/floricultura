@@ -2,6 +2,8 @@ package com.floricultura.service;
 
 import com.floricultura.model.Funcionario;
 import com.floricultura.repository.FuncionarioRepository;
+import com.floricultura.repository.UsuarioRepository;
+import com.floricultura.repository.MasterRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -9,25 +11,50 @@ import java.util.Optional;
 
 @Service
 public class FuncionarioService {
-    private final FuncionarioRepository repository;
 
-    public FuncionarioService(FuncionarioRepository repository) {
-        this.repository = repository;
+    private final FuncionarioRepository funcionarioRepository;
+    private final UsuarioRepository usuarioRepository;
+    private final MasterRepository masterRepository;
+
+    public FuncionarioService(FuncionarioRepository funcionarioRepository,
+                              UsuarioRepository usuarioRepository,
+                              MasterRepository masterRepository) {
+        this.funcionarioRepository = funcionarioRepository;
+        this.usuarioRepository = usuarioRepository;
+        this.masterRepository = masterRepository;
     }
 
     public List<Funcionario> listarTodos() {
-        return repository.findAll();
+        return funcionarioRepository.findAll();
     }
 
     public void salvar(Funcionario funcionario) {
-        repository.save(funcionario);
+        funcionarioRepository.save(funcionario);
     }
 
     public Optional<Funcionario> buscarPorId(Long id) {
-        return repository.findById(id);
+        return funcionarioRepository.findById(id);
     }
 
     public void deletar(Long id) {
-        repository.deleteById(id);
+        funcionarioRepository.deleteById(id);
+    }
+
+    public boolean existeEmail(String email) {
+        return funcionarioRepository.existsByEmail(email)
+                || usuarioRepository.existsByEmail(email)
+                || masterRepository.existsByEmail(email);
+    }
+
+    public boolean existeCpf(String cpf) {
+        return funcionarioRepository.existsByCpf(cpf)
+                || usuarioRepository.existsByCpf(cpf)
+                || masterRepository.existsByCpf(cpf);
+    }
+
+    public boolean existeTelefone(String telefone) {
+        return funcionarioRepository.existsByTelefone(telefone)
+                || usuarioRepository.existsByTelefone(telefone)
+                || masterRepository.existsByTelefone(telefone);
     }
 }

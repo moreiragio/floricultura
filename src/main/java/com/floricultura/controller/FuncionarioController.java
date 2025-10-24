@@ -26,15 +26,28 @@ public class FuncionarioController {
 
     @PostMapping("/salvar")
     public String salvar(@ModelAttribute Funcionario funcionario, Model model) {
-        try {
-            service.salvar(funcionario);
-            model.addAttribute("sucesso", true);
-            return "admin/paginaAdmin";
-        } catch (Exception e) {
-            model.addAttribute("erro", "Erro ao salvar funcionário. Verifique os campos.");
+
+        // Validar duplicidade
+        if(service.existeEmail(funcionario.getEmail())) {
+            model.addAttribute("erro", "Email já cadastrado!");
+            model.addAttribute("funcionario", funcionario);
             return "admin/paginaAdmin";
         }
+        if(service.existeCpf(funcionario.getCpf())) {
+            model.addAttribute("erro", "CPF já cadastrado!");
+            model.addAttribute("funcionario", funcionario);
+            return "admin/paginaAdmin";
+        }
+        if(service.existeTelefone(funcionario.getTelefone())) {
+            model.addAttribute("erro", "Telefone já cadastrado!");
+            model.addAttribute("funcionario", funcionario);
+            return "admin/paginaAdmin";
+        }
+
+        service.salvar(funcionario);
+        return "redirect:/admin/paginaAdmin?sucesso=true";
     }
+
 
 
     @GetMapping("/editar/{id}")
@@ -47,6 +60,6 @@ public class FuncionarioController {
     @GetMapping("/deletar/{id}")
     public String deletar(@PathVariable Long id) {
         service.deletar(id);
-        return "redirect:/funcionarios";
+        return "admin/paginaAdmin";
     }
 }
