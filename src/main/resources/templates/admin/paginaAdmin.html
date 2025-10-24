@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Funcionários - Floricultura Flores & Cores</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/estilo.css}">
+    <style>
+        /* Estilo geral do formulário e botões */
+        body { font-family: 'Poppins', sans-serif; }
+        .container { max-width: 1200px; margin: 20px auto; padding: 10px; }
+        h2 { text-align: center; margin-bottom: 20px; }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        tr:nth-child(even) { background-color: #f2f2f2; }
+
+        .btn-acao {
+            padding: 5px 10px;
+            border-radius: 5px;
+            text-decoration: none;
+            color: white;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .btn-editar { background-color: #28a745; }
+        .btn-editar:hover { background-color: #218838; }
+
+        .btn-excluir { background-color: #dc3545; }
+        .btn-excluir:hover { background-color: #c82333; }
+
+        .nav-central a {
+            margin-right: 15px;
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        header {
+            background-color: #4CAF50;
+            padding: 15px;
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        header h1 a { color: white; text-decoration: none; }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1><a th:href="@{/}">Floricultura Flores & Cores</a></h1>
+    <nav class="nav-central">
+        <a th:href="@{/funcionarios/novo}" class="btn-cadastrar">Cadastrar Funcionário</a>
+    </nav>
+</header>
+
+<div class="container">
+    <h2>Lista de Funcionários Cadastrados</h2>
+
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nome</th>
+                <th>Email</th>
+                <th>Ações</th>
+                <th>Mais Informações</th>
+                <th>Editar</th>
+                <th>Excluir</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="funcionario : ${funcionarios}">
+                <td th:text="${funcionario.id}"></td>
+                <td th:text="${funcionario.nome}"></td>
+                <td th:text="${funcionario.email}"></td>
+                <td>
+                    <a th:href="@{/funcionarios/detalhes/{id}(id=${funcionario.id})}" class="btn-acao btn-editar">Mais Informações</a>
+                </td>
+                <td>
+                    <a th:href="@{/funcionarios/editar/{id}(id=${funcionario.id})}" class="btn-acao btn-editar">Editar</a>
+                </td>
+                <td>
+                    <a th:href="@{/funcionarios/excluir/{id}(id=${funcionario.id})}" class="btn-acao btn-excluir"
+                       onclick="return confirm('Tem certeza que deseja excluir este funcionário?');">Excluir</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<footer>
+    <div class="footer-container">
+        <div class="footer-section">
+            <h4>Horário de Funcionamento</h4>
+            <p>De seg à sex das 08h às 20h</p>
+            <p>Sáb e dom das 10h às 18h</p>
+        </div>
+        <div class="footer-section">
+            <h4>Entre em Contato</h4>
+            <a href="https://www.instagram.com" target="_blank"><i class="fab fa-instagram"></i></a>
+            <a href="https://www.facebook.com" target="_blank"><i class="fab fa-facebook-f"></i></a>
+            <a href="https://wa.me/559999999999" target="_blank"><i class="fab fa-whatsapp"></i></a>
+        </div>
+        <div class="footer-section">
+            <h4>Endereço</h4>
+            <p>Rua das Flores, 123, Taboão da Serra - SP</p>
+            <p>Telefone: (11) 4787-7355</p>
+        </div>
+    </div>
+</footer>
+
+</body>
+</html>

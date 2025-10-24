@@ -5,6 +5,7 @@ import com.floricultura.service.FuncionarioService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 @RequestMapping("/funcionarios")
@@ -16,23 +17,25 @@ public class FuncionarioController {
         this.service = service;
     }
 
-    @GetMapping
-    public String listar(Model model) {
-        model.addAttribute("funcionarios", service.listarTodos());
-        return "funcionario/listar";
-    }
 
     @GetMapping("/novo")
     public String novoForm(Model model) {
         model.addAttribute("funcionario", new Funcionario());
-        return "funcionario/formFuncionario";
+        return "admin/cadastrarFuncionario";
     }
 
     @PostMapping("/salvar")
-    public String salvar(@ModelAttribute Funcionario funcionario) {
-        service.salvar(funcionario);
-        return "redirect:/funcionarios";
+    public String salvar(@ModelAttribute Funcionario funcionario, Model model) {
+        try {
+            service.salvar(funcionario);
+            model.addAttribute("sucesso", true);
+            return "admin/paginaAdmin";
+        } catch (Exception e) {
+            model.addAttribute("erro", "Erro ao salvar funcionário. Verifique os campos.");
+            return "admin/paginaAdmin";
+        }
     }
+
 
     @GetMapping("/editar/{id}")
     public String editarForm(@PathVariable Long id, Model model) {
