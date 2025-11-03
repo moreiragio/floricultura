@@ -8,23 +8,21 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
     <link rel="stylesheet" th:href="@{/estilo.css}">
     <style>
-        /* Estilo geral do formulário e botões */
-        body { font-family: 'Poppins', sans-serif; }
+        body { font-family: 'Poppins', sans-serif; margin: 0; padding: 0; }
         .container { max-width: 1200px; margin: 20px auto; padding: 10px; }
         h2 { text-align: center; margin-bottom: 20px; }
 
         table {
             width: 100%;
             border-collapse: collapse;
-        }
-
-        table, th, td {
-            border: 1px solid #ddd;
+            border-radius: 10px;
+            overflow: hidden;
         }
 
         th, td {
+            border: 1px solid #ddd;
             padding: 12px;
-            text-align: left;
+            text-align: center;
         }
 
         th {
@@ -32,29 +30,26 @@
             color: white;
         }
 
-        tr:nth-child(even) { background-color: #f2f2f2; }
+        tr:nth-child(even) { background-color: #f9f9f9; }
 
         .btn-acao {
-            padding: 5px 10px;
+            padding: 6px 12px;
             border-radius: 5px;
             text-decoration: none;
             color: white;
-            font-weight: bold;
+            font-weight: 600;
             transition: 0.3s;
+            display: inline-block;
         }
+
+        .btn-info { background-color: #17a2b8; }
+        .btn-info:hover { background-color: #138496; }
 
         .btn-editar { background-color: #28a745; }
         .btn-editar:hover { background-color: #218838; }
 
         .btn-excluir { background-color: #dc3545; }
         .btn-excluir:hover { background-color: #c82333; }
-
-        .nav-central a {
-            margin-right: 15px;
-            color: white;
-            text-decoration: none;
-            font-weight: 600;
-        }
 
         header {
             background-color: #4CAF50;
@@ -65,15 +60,50 @@
             align-items: center;
         }
 
-        header h1 a { color: white; text-decoration: none; }
+        header h1 a {
+            color: white;
+            text-decoration: none;
+        }
+
+        .nav-central a {
+            margin-left: 15px;
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        footer {
+            margin-top: 40px;
+            background-color: #4CAF50;
+            color: white;
+            text-align: center;
+            padding: 20px 10px;
+        }
+
+        .footer-container {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+        }
+
+        .footer-section {
+            margin: 10px;
+        }
+
+        .footer-section a {
+            color: white;
+            margin: 0 5px;
+            font-size: 18px;
+        }
+
     </style>
 </head>
 <body>
 
 <header>
-    <h1><a th:href="@{/}">Floricultura Flores & Cores</a></h1>
+    <h1><a th:href="@{/inicio}">Floricultura Flores & Cores</a></h1>
     <nav class="nav-central">
-        <a th:href="@{/funcionarios/novo}" class="btn-cadastrar">Cadastrar Funcionário</a>
+        <a th:href="@{/funcionarios/novo}" class="btn-acao btn-editar">Cadastrar Funcionário</a>
     </nav>
 </header>
 
@@ -82,32 +112,38 @@
 
     <table>
         <thead>
-            <tr>
-                <th>ID</th>
-                <th>Nome</th>
-                <th>Email</th>
-                <th>Ações</th>
-                <th>Mais Informações</th>
-                <th>Editar</th>
-                <th>Excluir</th>
-            </tr>
+        <tr>
+            <th>ID</th>
+            <th>Nome</th>
+            <th>Email</th>
+            <th>Telefone</th>
+            <th>CPF</th>
+            <th>Ações</th>
+        </tr>
         </thead>
         <tbody>
-            <tr th:each="funcionario : ${funcionarios}">
-                <td th:text="${funcionario.id}"></td>
-                <td th:text="${funcionario.nome}"></td>
-                <td th:text="${funcionario.email}"></td>
-                <td>
-                    <a th:href="@{/funcionarios/detalhes/{id}(id=${funcionario.id})}" class="btn-acao btn-editar">Mais Informações</a>
-                </td>
-                <td>
-                    <a th:href="@{/funcionarios/editar/{id}(id=${funcionario.id})}" class="btn-acao btn-editar">Editar</a>
-                </td>
-                <td>
-                    <a th:href="@{/funcionarios/excluir/{id}(id=${funcionario.id})}" class="btn-acao btn-excluir"
-                       onclick="return confirm('Tem certeza que deseja excluir este funcionário?');">Excluir</a>
-                </td>
-            </tr>
+        <!-- Se houver funcionários, exibe -->
+        <tr th:each="funcionario : ${funcionarios}">
+            <td th:text="${funcionario.id}"></td>
+            <td th:text="${funcionario.nome}"></td>
+            <td th:text="${funcionario.email}"></td>
+            <td th:text="${funcionario.telefone}"></td>
+            <td th:text="${funcionario.cpf}"></td>
+            <td>
+                <a th:href="@{/funcionarios/detalhes/{id}(id=${funcionario.id})}" class="btn-acao btn-info">Detalhes</a>
+                <a th:href="@{/funcionarios/editar/{id}(id=${funcionario.id})}" class="btn-acao btn-editar">Editar</a>
+                <a th:href="@{/funcionarios/excluir/{id}(id=${funcionario.id})}"
+                   class="btn-acao btn-excluir"
+                   onclick="return confirm('Tem certeza que deseja excluir este funcionário?');">
+                    Excluir
+                </a>
+            </td>
+        </tr>
+
+        <!-- Se a lista estiver vazia -->
+        <tr th:if="${#lists.isEmpty(funcionarios)}">
+            <td colspan="6">Nenhum funcionário cadastrado.</td>
+        </tr>
         </tbody>
     </table>
 </div>

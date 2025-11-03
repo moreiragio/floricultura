@@ -5,7 +5,6 @@ import com.floricultura.service.FuncionarioService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 @RequestMapping("/funcionarios")
@@ -17,6 +16,11 @@ public class FuncionarioController {
         this.service = service;
     }
 
+    @GetMapping
+    public String listarFuncionarios(Model model) {
+        model.addAttribute("funcionarios", service.listarTodos());
+        return "admin/paginaAdmin";
+    }
 
     @GetMapping("/novo")
     public String novoForm(Model model) {
@@ -27,39 +31,43 @@ public class FuncionarioController {
     @PostMapping("/salvar")
     public String salvar(@ModelAttribute Funcionario funcionario, Model model) {
 
-        // Validar duplicidade
-        if(service.existeEmail(funcionario.getEmail())) {
+        if (service.existeEmail(funcionario.getEmail())) {
             model.addAttribute("erro", "Email já cadastrado!");
             model.addAttribute("funcionario", funcionario);
-            return "admin/paginaAdmin";
+            return "admin/cadastrarFuncionario";
         }
-        if(service.existeCpf(funcionario.getCpf())) {
+        if (service.existeCpf(funcionario.getCpf())) {
             model.addAttribute("erro", "CPF já cadastrado!");
             model.addAttribute("funcionario", funcionario);
-            return "admin/paginaAdmin";
+            return "admin/cadastrarFuncionario";
         }
-        if(service.existeTelefone(funcionario.getTelefone())) {
+        if (service.existeTelefone(funcionario.getTelefone())) {
             model.addAttribute("erro", "Telefone já cadastrado!");
             model.addAttribute("funcionario", funcionario);
-            return "admin/paginaAdmin";
+            return "admin/cadastrarFuncionario";
         }
 
         service.salvar(funcionario);
-        return "redirect:/admin/paginaAdmin?sucesso=true";
+        return "redirect:/funcionarios";
     }
-
-
 
     @GetMapping("/editar/{id}")
     public String editarForm(@PathVariable Long id, Model model) {
         Funcionario funcionario = service.buscarPorId(id).orElseThrow();
         model.addAttribute("funcionario", funcionario);
-        return "funcionario/formFuncionario";
+        return "admin/editarFuncionario";
     }
 
-    @GetMapping("/deletar/{id}")
-    public String deletar(@PathVariable Long id) {
+    @GetMapping("/excluir/{id}")
+    public String excluir(@PathVariable Long id) {
         service.deletar(id);
-        return "admin/paginaAdmin";
+        return "redirect:/funcionarios"; // volta para a lista
+    }
+
+    @GetMapping("/detalhes/{id}")
+    public String detalhesFuncionario(@PathVariable Long id, Model model) {
+        Funcionario funcionario = service.buscarPorId(id).orElse(null);
+        model.addAttribute("funcionario", funcionario);
+        return "admin/detalhesFuncionario";
     }
 }
