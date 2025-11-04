@@ -130,7 +130,6 @@
             <td th:text="${funcionario.telefone}"></td>
             <td th:text="${funcionario.cpf}"></td>
             <td>
-                <a th:href="@{/funcionarios/detalhes/{id}(id=${funcionario.id})}" class="btn-acao btn-info">Detalhes</a>
                 <a th:href="@{/funcionarios/editar/{id}(id=${funcionario.id})}" class="btn-acao btn-editar">Editar</a>
                 <a th:href="@{/funcionarios/excluir/{id}(id=${funcionario.id})}"
                    class="btn-acao btn-excluir"
@@ -148,26 +147,6 @@
     </table>
 </div>
 
-<footer>
-    <div class="footer-container">
-        <div class="footer-section">
-            <h4>Horário de Funcionamento</h4>
-            <p>De seg à sex das 08h às 20h</p>
-            <p>Sáb e dom das 10h às 18h</p>
-        </div>
-        <div class="footer-section">
-            <h4>Entre em Contato</h4>
-            <a href="https://www.instagram.com" target="_blank"><i class="fab fa-instagram"></i></a>
-            <a href="https://www.facebook.com" target="_blank"><i class="fab fa-facebook-f"></i></a>
-            <a href="https://wa.me/559999999999" target="_blank"><i class="fab fa-whatsapp"></i></a>
-        </div>
-        <div class="footer-section">
-            <h4>Endereço</h4>
-            <p>Rua das Flores, 123, Taboão da Serra - SP</p>
-            <p>Telefone: (11) 4787-7355</p>
-        </div>
-    </div>
-</footer>
 
 </body>
 </html>

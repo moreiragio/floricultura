@@ -24,7 +24,7 @@ public class LoginController {
 
     @GetMapping("/login")
     public String loginPage() {
-        return "login"; // login.html em templates
+        return "login";
     }
 
     @PostMapping("/login")

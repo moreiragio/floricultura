@@ -58,6 +58,19 @@ public class FuncionarioController {
         return "admin/editarFuncionario";
     }
 
+    @PostMapping("/atualizar")
+    public String atualizar(@ModelAttribute Funcionario funcionario, Model model) {
+        try {
+            service.atualizar(funcionario);
+            return "redirect:/funcionarios";
+        } catch (Exception e) {
+            model.addAttribute("erro", "Erro ao atualizar funcionário: " + e.getMessage());
+            model.addAttribute("funcionario", funcionario);
+            return "funcionarios/editarFuncionario";
+        }
+    }
+
+
     @GetMapping("/excluir/{id}")
     public String excluir(@PathVariable Long id) {
         service.deletar(id);

@@ -57,4 +57,28 @@ public class FuncionarioService {
                 || usuarioRepository.existsByTelefone(telefone)
                 || masterRepository.existsByTelefone(telefone);
     }
+
+    public void atualizar(Funcionario funcionario) {
+        Funcionario existente = funcionarioRepository.findById(funcionario.getId())
+                .orElseThrow(() -> new RuntimeException("Funcionário não encontrado"));
+
+        existente.setNome(funcionario.getNome());
+        existente.setEmail(funcionario.getEmail());
+        existente.setTelefone(funcionario.getTelefone());
+        existente.setCep(funcionario.getCep());
+        existente.setRua(funcionario.getRua());
+        existente.setNumero(funcionario.getNumero());
+        existente.setBairro(funcionario.getBairro());
+        existente.setCidade(funcionario.getCidade());
+        existente.setEstado(funcionario.getEstado());
+        existente.setComplemento(funcionario.getComplemento());
+        existente.setDataNascimento(funcionario.getDataNascimento());
+
+        if (funcionario.getSenha() != null && !funcionario.getSenha().isBlank()) {
+            existente.setSenha(funcionario.getSenha());
+        }
+
+        funcionarioRepository.save(existente);
+    }
+
 }

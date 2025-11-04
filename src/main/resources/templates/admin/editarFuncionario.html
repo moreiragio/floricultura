@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar Funcionário</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/estilo.css}">
+
+    <style>
+        .container-cadastro {
+            max-width: 700px;
+            margin: 40px auto;
+            padding: 20px 30px;
+            background-color: #fff;
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            font-family: 'Poppins', sans-serif;
+        }
+
+        fieldset {
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            padding: 15px;
+        }
+
+        legend { font-weight: 600; }
+
+        .campo { margin-bottom: 15px; display: flex; flex-direction: column; }
+
+        .campo input {
+            padding: 8px;
+            border-radius: 6px;
+            border: 1px solid #ccc;
+            font-size: 1em;
+        }
+
+        button[type="submit"] {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            background-color: #4CAF50;
+            color: white;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        button[type="submit"]:hover { background-color: #45a049; }
+
+        .mensagem-erro {
+            color: #e57373;
+            font-size: 0.9em;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
+        header {
+            background-color: #4CAF50;
+            padding: 15px;
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        header h1 a { text-decoration: none; color: white; }
+    </style>
+
+    <script>
+        function apenasNumeros(str){ return str.replace(/\D/g,''); }
+
+        function aplicarMascaraCPF(input){
+            let valor = apenasNumeros(input.value).slice(0,11);
+            input.value = valor.replace(/(\d{3})(\d)/,"$1.$2")
+                              .replace(/(\d{3})(\d)/,"$1.$2")
+                              .replace(/(\d{3})(\d{1,2})$/,"$1-$2");
+        }
+
+        function aplicarMascaraTelefone(input){
+            let valor = apenasNumeros(input.value).slice(0,11);
+            if(valor.length>2){
+                input.value = `(${valor.slice(0,2)}) ${valor.slice(2,7)}-${valor.slice(7,11)}`;
+            } else input.value = valor;
+        }
+
+        function aplicarMascaraCEP(input){
+            let valor = apenasNumeros(input.value).slice(0,8);
+            input.value = valor.replace(/(\d{5})(\d)/,"$1-$2");
+        }
+
+        function prepararEnvio(){
+            document.getElementById("cpf").value = apenasNumeros(document.getElementById("cpf").value);
+            document.getElementById("telefone").value = apenasNumeros(document.getElementById("telefone").value);
+            document.getElementById("cep").value = apenasNumeros(document.getElementById("cep").value);
+            return true;
+        }
+    </script>
+</head>
+
+<body>
+<header>
+    <h1><a href="/" th:href="@{/}">Floricultura Flores & Cores</a></h1>
+    <nav class="nav-central">
+        <a href="/funcionarios" th:href="@{/funcionarios}">Voltar para a Lista</a>
+    </nav>
+</header>
+
+<main>
+    <div class="container-cadastro">
+        <div th:if="${erro}" class="mensagem-erro" th:text="${erro}"></div>
+
+        <form th:object="${funcionario}" th:action="@{/funcionarios/atualizar}" method="post" onsubmit="return prepararEnvio()">
+            <input type="hidden" th:field="*{id}">
+
+            <fieldset>
+                <legend>Informações Pessoais</legend>
+                <div class="campo">
+                    <label>Nome:</label>
+                    <input type="text" th:field="*{nome}" required>
+                </div>
+
+                <div class="campo">
+                    <label>Email:</label>
+                    <input type="email" th:field="*{email}" required>
+                </div>
+
+                <div class="campo">
+                    <label>CPF:</label>
+                    <input type="text" id="cpf" th:field="*{cpf}" readonly>
+                    <small style="color:gray;">O CPF não pode ser alterado.</small>
+                </div>
+
+                <div class="campo">
+                    <label>Data de Nascimento:</label>
+                    <input type="date" th:field="*{dataNascimento}" required>
+                </div>
+
+                <div class="campo">
+                    <label>Telefone:</label>
+                    <input type="text" id="telefone" th:field="*{telefone}" oninput="aplicarMascaraTelefone(this)" required>
+                </div>
+
+                <div class="campo">
+                    <label>Senha:</label>
+                    <input type="password" th:field="*{senha}" placeholder="Deixe em branco para manter a atual">
+                </div>
+            </fieldset>
+
+            <fieldset>
+                <legend>Endereço</legend>
+                <div class="campo">
+                    <label>CEP:</label>
+                    <input type="text" id="cep" th:field="*{cep}" oninput="aplicarMascaraCEP(this)" required>
+                </div>
+                <div class="campo"><label>Rua:</label><input type="text" th:field="*{rua}" required></div>
+                <div class="campo"><label>Número:</label><input type="text" th:field="*{numero}" required></div>
+                <div class="campo"><label>Bairro:</label><input type="text" th:field="*{bairro}" required></div>
+                <div class="campo"><label>Cidade:</label><input type="text" th:field="*{cidade}" required></div>
+                <div class="campo"><label>Estado:</label><input type="text" th:field="*{estado}" required></div>
+                <div class="campo"><label>Complemento:</label><input type="text" th:field="*{complemento}"></div>
+            </fieldset>
+
+            <button type="submit">Salvar Alterações</button>
+        </form>
+    </div>
+</main>
+
+<footer>
+    <div class="footer-container">
+        <div class="footer-section">
+            <h4>Horário de Funcionamento</h4>
+            <p>Seg à Sex: 08h às 20h</p>
+            <p>Sáb e Dom: 10h às 18h</p>
+        </div>
+        <div class="footer-section">
+            <h4>Entre em Contato</h4>
+            <a href="https://www.instagram.com" target="_blank"><i class="fab fa-instagram"></i></a>
+            <a href="https://www.facebook.com" target="_blank"><i class="fab fa-facebook-f"></i></a>
+            <a href="https://wa.me/559999999999" target="_blank"><i class="fab fa-whatsapp"></i></a>
+        </div>
+        <div class="footer-section">
+            <h4>Endereço</h4>
+            <p>Rua das Flores, 123, Taboão da Serra - SP</p>
+            <p>Telefone: (11) 4787-7355</p>
+        </div>
+    </div>
+</footer>
+</body>
+</html>

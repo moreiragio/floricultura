@@ -1,6 +1,8 @@
 package com.floricultura.model;
 
 import jakarta.persistence.*;
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.time.LocalDate;
 
 @Entity
@@ -14,6 +16,8 @@ public class Funcionario {
     private String senha;
     private String cpf;
     private String telefone;
+
+    @DateTimeFormat(pattern = "dd-MM-yyyy")
     private LocalDate dataNascimento;
     private String rua;
     private String bairro;
