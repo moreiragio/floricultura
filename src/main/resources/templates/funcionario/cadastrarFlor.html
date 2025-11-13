@@ -1,19 +1,109 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Cadastro de Flor</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="${flor.id} != null ? 'Editar Flor' : 'Cadastrar Flor'">Cadastrar Flor</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/estilo.css}">
+    <style>
+        body { font-family: 'Poppins', sans-serif; margin: 0; padding: 0; background-color: #f7f7f7; }
+        .container { max-width: 700px; margin: 40px auto; padding: 30px; background: white; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
+        h2 { text-align: center; color: #4CAF50; margin-bottom: 20px; }
+        form { display: flex; flex-direction: column; }
+        label { font-weight: 600; margin-top: 10px; }
+        input, select, textarea {
+            padding: 10px;
+            margin-top: 5px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            font-size: 14px;
+        }
+        textarea { resize: none; height: 80px; }
+        .btn-container {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+        .btn {
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            color: white;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .btn-salvar { background-color: #28a745; }
+        .btn-salvar:hover { background-color: #218838; }
+        .btn-voltar { background-color: #17a2b8; }
+        .btn-voltar:hover { background-color: #138496; }
+        header {
+            background-color: #4CAF50;
+            padding: 15px;
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        header h1 a {
+            color: white;
+            text-decoration: none;
+        }
+        .nav-central a {
+            margin-left: 15px;
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+        }
+    </style>
 </head>
 <body>
-<h2>Cadastro de Flor</h2>
-<form th:action="@{/flores/salvar}" th:object="${flor}" method="post">
-    <input type="hidden" th:field="*{id}" />
-    Nome: <input th:field="*{nome}" /><br/>
-    Cor: <input th:field="*{cor}" /><br/>
-    Quantidade: <input th:field="*{quantidade}" type="number"/><br/>
-    Valor: <input th:field="*{valor}" type="number" step="0.01"/><br/>
-    Descrição: <input th:field="*{descricao}" /><br/>
-    <button type="submit">Salvar</button>
-</form>
-<a th:href="@{/flores}">Voltar</a>
+
+<header>
+    <h1><a th:href="@{/inicio}">Floricultura Flores & Cores</a></h1>
+    <nav class="nav-central">
+        <a th:href="@{/flor}">Lista de Flores</a>
+        <a th:href="@{/paginaFuncionario}">Página do Funcionário</a>
+    </nav>
+</header>
+
+<div class="container">
+    <h2 th:text="${flor.id} != null ? 'Editar Flor' : 'Cadastrar Nova Flor'"></h2>
+
+    <form th:action="@{/flor/salvar}" th:object="${flor}" method="post">
+        <input type="hidden" th:field="*{id}">
+
+        <label for="nome">Nome:</label>
+        <input type="text" id="nome" th:field="*{nome}" placeholder="Ex: Rosa Vermelha" required>
+
+        <label for="quantidade">Quantidade:</label>
+        <input type="number" id="quantidade" th:field="*{quantidade}" min="0" required>
+
+        <label for="valor">Valor (R$):</label>
+        <input type="number" id="valor" step="0.01" th:field="*{valor}" placeholder="Ex: 15.90" required>
+
+        <label for="cor">Cor:</label>
+        <input type="text" id="cor" th:field="*{cor}" placeholder="Ex: Vermelha" required>
+
+        <label for="descricao">Descrição:</label>
+        <textarea id="descricao" th:field="*{descricao}" placeholder="Ex: Flor com aroma suave e pétalas aveludadas."></textarea>
+
+        <label for="funcionario">Funcionário Responsável:</label>
+        <select id="funcionario" th:field="*{funcionario}" required>
+            <option value="">Selecione o funcionário</option>
+            <option th:each="func : ${funcionarios}"
+                    th:value="${func}"
+                    th:text="${func.nome}"></option>
+        </select>
+
+        <div class="btn-container">
+            <button type="submit" class="btn btn-salvar">Salvar</button>
+            <a th:href="@{/flor}" class="btn btn-voltar">Voltar</a>
+        </div>
+    </form>
+</div>
+
 </body>
 </html>
