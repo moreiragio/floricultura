@@ -8,6 +8,14 @@ public class Flor {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    public int getQuantidade() {
+        return quantidade;
+    }
+
+    public void setQuantidade(int quantidade) {
+        this.quantidade = quantidade;
+    }
+
     private String nome;
     private int quantidade;
     private double valor;
@@ -19,5 +27,4 @@ public class Flor {
     @JoinColumn(name = "id_funcionario")
     private Funcionario funcionario;
 
-    // getters e setters
 }

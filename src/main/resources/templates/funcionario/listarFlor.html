@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lista de Funcionários - Floricultura Flores & Cores</title>
+    <title>Lista de Flores - Floricultura Flores & Cores</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
     <link rel="stylesheet" th:href="@{/estilo.css}">
@@ -33,20 +33,24 @@
         tr:nth-child(even) { background-color: #f9f9f9; }
 
         .btn-acao {
-            padding: 6px 12px;
+            padding: 6px 10px;
             border-radius: 5px;
             text-decoration: none;
             color: white;
             font-weight: 600;
             transition: 0.3s;
             display: inline-block;
+            margin: 2px;
         }
-
-        .btn-info { background-color: #17a2b8; }
-        .btn-info:hover { background-color: #138496; }
 
         .btn-editar { background-color: #28a745; }
         .btn-editar:hover { background-color: #218838; }
+
+        .btn-aumentar { background-color: #17a2b8; }
+        .btn-aumentar:hover { background-color: #138496; }
+
+        .btn-diminuir { background-color: #ffc107; color: black; }
+        .btn-diminuir:hover { background-color: #e0a800; }
 
         .btn-excluir { background-color: #dc3545; }
         .btn-excluir:hover { background-color: #c82333; }
@@ -71,82 +75,62 @@
             text-decoration: none;
             font-weight: 600;
         }
-
-        footer {
-            margin-top: 40px;
-            background-color: #4CAF50;
-            color: white;
-            text-align: center;
-            padding: 20px 10px;
-        }
-
-        .footer-container {
-            display: flex;
-            justify-content: space-around;
-            flex-wrap: wrap;
-        }
-
-        .footer-section {
-            margin: 10px;
-        }
-
-        .footer-section a {
-            color: white;
-            margin: 0 5px;
-            font-size: 18px;
-        }
-
     </style>
 </head>
 <body>
 
 <header>
-    <h1><a th:href="@{/}">Floricultura Flores & Cores</a></h1>
+    <h1><a th:href="@{/inicio}">Floricultura Flores & Cores</a></h1>
     <nav class="nav-central">
-        <a th:href="@{/funcionarios/novo}">Cadastrar Funcionário</a>
+        <a th:href="@{/flor/novo}">Cadastrar Flor</a>
+        <a th:href="@{/paginaFuncionario}">Página do Funcionário</a>
     </nav>
 </header>
 
 <div class="container">
-    <h2>Lista de Funcionários Cadastrados</h2>
+    <h2>Lista de Flores</h2>
 
     <table>
         <thead>
         <tr>
             <th>ID</th>
             <th>Nome</th>
-            <th>Email</th>
-            <th>Telefone</th>
-            <th>CPF</th>
+            <th>Quantidade</th>
+            <th>Valor (R$)</th>
+            <th>Cor</th>
+            <th>Descrição</th>
+            <th>Funcionário</th>
             <th>Ações</th>
         </tr>
         </thead>
         <tbody>
-        <!-- Se houver funcionários, exibe -->
-        <tr th:each="funcionario : ${funcionarios}">
-            <td th:text="${funcionario.id}"></td>
-            <td th:text="${funcionario.nome}"></td>
-            <td th:text="${funcionario.email}"></td>
-            <td th:text="${funcionario.telefone}"></td>
-            <td th:text="${funcionario.cpf}"></td>
+        <!-- Exibe as flores cadastradas -->
+        <tr th:each="flor : ${flores}">
+            <td th:text="${flor.id}"></td>
+            <td th:text="${flor.nome}"></td>
+            <td th:text="${flor.quantidade}"></td>
+            <td th:text="${#numbers.formatDecimal(flor.valor, 1, 2)}"></td>
+            <td th:text="${flor.cor}"></td>
+            <td th:text="${flor.descricao}"></td>
+            <td th:text="${flor.funcionario != null ? flor.funcionario.nome : '---'}"></td>
             <td>
-                <a th:href="@{/funcionarios/editar/{id}(id=${funcionario.id})}" class="btn-acao btn-editar">Editar</a>
-                <a th:href="@{/funcionarios/excluir/{id}(id=${funcionario.id})}"
+                <a th:href="@{/flor/editar/{id}(id=${flor.id})}" class="btn-acao btn-editar">Editar</a>
+                <a th:href="@{/flor/aumentar/{id}(id=${flor.id})}" class="btn-acao btn-aumentar">+</a>
+                <a th:href="@{/flor/diminuir/{id}(id=${flor.id})}" class="btn-acao btn-diminuir">-</a>
+                <a th:href="@{/flor/deletar/{id}(id=${flor.id})}"
                    class="btn-acao btn-excluir"
-                   onclick="return confirm('Tem certeza que deseja excluir este funcionário?');">
+                   onclick="return confirm('Tem certeza que deseja excluir esta flor?');">
                     Excluir
                 </a>
             </td>
         </tr>
 
-        <!-- Se a lista estiver vazia -->
-        <tr th:if="${#lists.isEmpty(funcionarios)}">
-            <td colspan="6">Nenhum funcionário cadastrado.</td>
+        <tr th:if="${#lists.isEmpty(flores)}">
+            <td colspan="8">Nenhuma flor cadastrada.</td>
         </tr>
         </tbody>
     </table>
 </div>
-
 
 </body>
 </html>

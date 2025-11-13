@@ -7,8 +7,9 @@ import com.floricultura.repository.UsuarioRepository;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.Optional;
@@ -35,7 +36,7 @@ public class LoginController {
             Usuario usuario = usuarioOpt.get();
             session.setAttribute("usuarioLogado", usuario);
 
-            if ("master".equals(usuario.getTipoUsuario())) {
+            if ("master".equalsIgnoreCase(usuario.getTipoUsuario())) {
                 session.setAttribute("tipo", "master");
                 return "admin/paginaAdmin";
             } else {
@@ -49,11 +50,18 @@ public class LoginController {
             Funcionario funcionario = funcionarioOpt.get();
             session.setAttribute("usuarioLogado", funcionario);
             session.setAttribute("tipo", "funcionario");
-            return "flores";
+            return "redirect:/paginaFuncionario";
         }
 
         ra.addFlashAttribute("erro", "E-mail ou senha inválidos!");
         return "redirect:/login";
+    }
+
+    @GetMapping("/paginaFuncionario")
+    public String paginaFuncionario(HttpSession session, Model model) {
+        Object usuario = session.getAttribute("usuarioLogado");
+        model.addAttribute("usuarioLogado", usuario);
+        return "funcionario/paginaFuncionario";
     }
 
     @GetMapping("/logout")
@@ -61,4 +69,5 @@ public class LoginController {
         session.invalidate();
         return "redirect:/login";
     }
+
 }

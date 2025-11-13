@@ -8,7 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
-@RequestMapping("/flor")
+@RequestMapping("/flores")
 public class FlorController {
 
     private final FlorService service;
@@ -22,14 +22,14 @@ public class FlorController {
     @GetMapping
     public String listar(Model model) {
         model.addAttribute("flores", service.listarTodos());
-        return "flor/listarFlor";
+        return "funcionario/listarFlor";
     }
 
     @GetMapping("/novo")
     public String novoForm(Model model) {
         model.addAttribute("flor", new Flor());
         model.addAttribute("funcionarios", funcionarioService.listarTodos());
-        return "flor/cadastrarFlor";
+        return "funcionario/cadastrarFlor";
     }
 
     @PostMapping("/salvar")
@@ -50,6 +50,24 @@ public class FlorController {
     @GetMapping("/deletar/{id}")
     public String deletar(@PathVariable Long id) {
         service.deletar(id);
+        return "redirect:/flor";
+    }
+
+    @GetMapping("/aumentar/{id}")
+    public String aumentar(@PathVariable Long id) {
+        Flor flor = service.buscarPorId(id).orElseThrow(() -> new IllegalArgumentException("Flor inválida"));
+        flor.setQuantidade(flor.getQuantidade() + 1);
+        service.salvar(flor);
+        return "redirect:/flor";
+    }
+
+    @GetMapping("/diminuir/{id}")
+    public String diminuir(@PathVariable Long id) {
+        Flor flor = service.buscarPorId(id).orElseThrow(() -> new IllegalArgumentException("Flor inválida"));
+        if (flor.getQuantidade() > 0) {
+            flor.setQuantidade(flor.getQuantidade() - 1);
+            service.salvar(flor);
+        }
         return "redirect:/flor";
     }
 }

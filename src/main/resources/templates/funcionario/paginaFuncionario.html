@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Painel do Funcionário - Floricultura Flores & Cores</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/estilo.css}">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f6f6f6;
+        }
+
+        header {
+            background-color: #4CAF50;
+            padding: 15px 25px;
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        header h1 a {
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .nav-central a {
+            color: white;
+            margin-left: 20px;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 20px;
+            text-align: center;
+        }
+
+        h2 {
+            margin-bottom: 30px;
+            color: #333;
+        }
+
+         .cards {
+            display: flex;
+            justify-content: center;
+            gap: 60px;
+            flex-wrap: wrap;
+        }
+
+        .card {
+            background-color: white;
+            border-radius: 16px;
+            box-shadow: 0 6px 14px rgba(0,0,0,0.12);
+            width: 380px; /* aumentado */
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            text-align: center;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+
+        .card img {
+            width: 70%;
+            height: 250px; /* aumentado */
+            object-fit: cover;
+            object-position: center center;
+            margin: 0 auto;
+            display: block;
+
+        }
+
+        .card-content {
+            padding: 30px 25px; /* aumentado */
+        }
+
+        .card-content h3 {
+            color: #4CAF50;
+            margin-bottom: 12px;
+            font-size: 22px;
+        }
+
+        .card-content p {
+            color: #555;
+            margin-bottom: 25px;
+            font-size: 15px;
+            line-height: 1.5;
+        }
+
+        .btn-card {
+            display: inline-block;
+            background-color: #4CAF50;
+            color: white;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 15px;
+            text-decoration: none;
+            transition: 0.3s;
+        }
+
+        .btn-card:hover {
+            background-color: #43a047;
+        }
+
+        footer {
+            margin-top: 50px;
+            background-color: #4CAF50;
+            color: white;
+            text-align: center;
+            padding: 20px;
+        }
+
+        footer p {
+            margin: 0;
+        }
+
+    </style>
+</head>
+<body>
+
+<header>
+    <h1><a th:href="@{/}">Floricultura Flores & Cores</a></h1>
+    <nav class="nav-central">
+        <a th:href="@{/logout}"><i class="fas fa-sign-out-alt"></i> Sair</a>
+    </nav>
+</header>
+
+<div class="container">
+    <h2>
+        Bem-vindo(a),
+        <span th:if="${usuarioLogado != null}" th:text="${usuarioLogado.nome}">Funcionário</span>
+        <span th:unless="${usuarioLogado != null}">Funcionário</span>!
+    </h2>
+    <p>Escolha uma das opções abaixo para gerenciar os produtos da floricultura:</p>
+    <br>
+
+    <div class="cards">
+        <!-- Card de Flores -->
+        <div class="card">
+            <img th:src="@{/img/florr.jpg}" style="display: block;" alt="Flores">
+            <div class="card-content">
+                <h3>Flores</h3>
+                <p>Gerencie as flores cadastradas: veja, edite ou adicione novas espécies.</p>
+                <a th:href="@{/flores}" class="btn-card">Ver Flores</a>
+            </div>
+        </div>
+
+        <!-- Card de Outros Produtos -->
+        <div class="card">
+            <img th:src="@{/img/ursinho.jpg}" style="display: block;" alt="Produtos">
+            <div class="card-content">
+                <h3>Outros Produtos</h3>
+                <p>Acesse os outros produtos disponíveis, como vasos, adubos e decorações.</p>
+                <a th:href="@{/produtos}" class="btn-card">Ver Produtos</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
